@@ -7,6 +7,7 @@
 
 namespace lajax\translatemanager\models;
 
+use dmstr\db\traits\ActiveRecordAccessTrait;
 use Yii;
 
 /**
@@ -23,6 +24,8 @@ use Yii;
  * @property LanguageSource[] $languageSources
  */
 class Language extends \yii\db\ActiveRecord {
+
+    use ActiveRecordAccessTrait;
 
     /**
      * Status of inactive language.
@@ -49,6 +52,20 @@ class Language extends \yii\db\ActiveRecord {
         self::STATUS_ACTIVE => 'Active',
         self::STATUS_BETA => 'Beta',
     ];
+
+    /**
+     * @return array with access field names
+     */
+    public static function accessColumnAttributes()
+    {
+        return [
+            'owner'  => false,
+            'read'   => false,
+            'update' => false,
+            'delete' => false,
+            'domain' => 'language_id',
+        ];
+    }
 
     /**
      * @inheritdoc
